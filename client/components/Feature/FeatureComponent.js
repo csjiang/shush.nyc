@@ -16,14 +16,16 @@ export default class Feature extends React.Component {
         <Page heading='Take action'>
           <Grid>
             {this.props.viewer.features.edges.map((edge) => {
-              if (edge.node.type !== 'action') {
+              if (edge.node.type.indexOf('action') !== 0) {
                 return;
               }
 
               return (
                 <Cell col={4} key={edge.node.id}>
-                  <Card className={styles.card}>
-                    <CardTitle expand className={styles.image} style={{ backgroundImage: `url('')` }} />
+                  <Card className={styles.card + ' ' + edge.node.type}>
+                    <CardTitle expand className={styles.image}>
+                      <i className={`material-icons ${styles.icon}`}>{edge.node.type.replace('action-', '')}</i>
+                    </CardTitle>
                     <CardActions className={styles.name}>
                       <Button colored href={edge.node.url}>{edge.node.name}</Button>
                     </CardActions>
@@ -39,14 +41,16 @@ export default class Feature extends React.Component {
         <Page heading='Resources'>
           <Grid>
             {this.props.viewer.features.edges.map((edge) => {
-              if (edge.node.type !== 'resource') {
+              if (edge.node.type.indexOf('resource') !== 0) {
                 return;
               }
 
               return (
                 <Cell col={4} key={edge.node.id}>
                   <Card className={styles.card}>
-                    <CardTitle expand className={styles.image} style={{ backgroundImage: `url('')` }} />
+                    <CardTitle expand className={styles.image}>
+                      <i className={`material-icons ${styles.icon}`}>{edge.node.type.replace('resource-', '')}</i>
+                    </CardTitle>
                     <CardActions className={styles.name}>
                       <Button colored href={edge.node.url}>{edge.node.name}</Button>
                     </CardActions>
