@@ -1,9 +1,17 @@
+const uuidV1 = require('uuid/v1');
+
 class User {
-  constructor(id, name, username, website) {
+  constructor(id, name, username) {
     this.id = id;
     this.name = name;
     this.username = username;
-    this.website = website;
+  }
+}
+
+class Report {
+  constructor(id, address /*, addressType, crossStreet1, crossStreet2, state, zip, borough, noiseType, location, locationType, description*/) {
+    this.id = id;
+    this.address = address;
   }
 }
 
@@ -17,7 +25,7 @@ class Feature {
   }
 }
 
-const lvarayut = new User(1, 'Varayut Lerdkanlayanawat', 'lvarayut', 'https://github.com/lvarayut/relay-fullstack');
+const lvarayut = new User(1, 'Varayut Lerdkanlayanawat', 'lvarayut');
 
 let atFeature = 0;
 const features = [
@@ -32,6 +40,8 @@ const features = [
 * Add feature in memory
 */
 
+let reports = [];
+
 function addFeature(name, type, description, url) {
   const newFeature = new Feature(curFeatures, type, name, description, url);
   features.push(newFeature);
@@ -39,7 +49,6 @@ function addFeature(name, type, description, url) {
   atFeature += 1;
   return newFeature;
 }
-
 
 function getUser(id) {
   return id === lvarayut.id ? lvarayut : null;
@@ -53,11 +62,31 @@ function getFeatures() {
   return features;
 }
 
+function addReport(id, address) {
+  const newReport = new Report(uuidV1(), address);
+  reports.push(newReport);
+  return newReport;
+}
+
+function getReport(id) {
+  return reports.find(w => w.id === id);
+}
+
+function getReports() {
+  return features;
+}
+
+
+
 export {
   User,
   Feature,
+  Report,
   getUser,
   getFeature,
   getFeatures,
-  addFeature
+  addFeature,
+  getReport,
+  getReports,
+  addReport
 };
