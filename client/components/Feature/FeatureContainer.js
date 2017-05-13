@@ -11,6 +11,7 @@ export default Relay.createContainer(Feature, {
             node {
               id
               name
+              type
               description
               url
             }

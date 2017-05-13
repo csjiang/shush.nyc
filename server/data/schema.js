@@ -94,6 +94,10 @@ const featureType = new GraphQLObjectType({
       type: GraphQLString,
       description: 'Name of the feature'
     },
+    type: {
+      type: GraphQLString,
+      description: 'Type of the feature'
+    },
     description: {
       type: GraphQLString,
       description: 'Description of the feature'
