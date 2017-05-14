@@ -1,7 +1,6 @@
 import React from 'react';
 import { IndexRoute, Route, Redirect } from 'react-router';
 
-import ViewerQuery from './ViewerQuery';
 import RootContainer from '../components/App/RootContainer';
 import AppContainer from '../components/App/AppContainer';
 import SplashContainer from '../components/Splash/SplashContainer';

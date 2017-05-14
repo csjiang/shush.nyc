@@ -71,9 +71,13 @@ export default class FileComplaint extends Component {
         </div>
       );
     }
+    const formData = this.getFormData();
 
     return (
       <div>
+
+        <div>Filing complaint for {formData.address_number} {formData.street_name} in {formData.borough}</div>
+        <div> <br /> </div>
         <div>Email</div>
         <Textfield
           onChange={this.changeEmail}

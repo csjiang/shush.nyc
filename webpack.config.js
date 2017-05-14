@@ -12,7 +12,7 @@ let devtool;
 let plugins;
 
 const htmlTemplate = new HtmlWebpackPlugin({
-  title: 'Relay Starter Kit - Integrated with Relay, GraphQL, Express, ES6/ES7, JSX, Webpack, Babel, Material Design Lite, and PostCSS',
+  title: 'shush.nyc - keep it quiet tho',
   template: './client/index.html',
   googleMaps: {
     apiKey: process.env.MAPS_API_KEY,
@@ -67,12 +67,20 @@ if (process.env.NODE_ENV === 'production') {
 module.exports = {
   entry: {
     app: appEntry,
-    vendor: ['react', 'react-dom', 'react-mdl', 'react-relay', 'react-router', 'react-router-relay']
+    vendor: ['react', 'react-dom', 'react-mdl', 'react-router']
   },
   output: {
     path: path.join(__dirname, 'build'),
     publicPath: '/',
     filename: '[name].js'
+  },
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3332',
+        secure: false,
+      },
+    },
   },
   devtool,
   module: {

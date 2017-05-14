@@ -11,6 +11,30 @@ export default function createApp(express) {
   express.use(bodyParser.urlencoded({ extended: true }));
   express.use(bodyParser.json());
 
+
+
+  express.get('/api/building-info', (req, res, next) => {
+    console.log('!!!!', req.query);
+    if (db) {
+      console.log('db?1', parseFloat(req.query.lat));
+      db.collection('complaints').find({
+        loc: {
+          $geoWithin: {$centerSphere: [[ parseFloat(req.query.lat), parseFloat(req.query.lng) ], 1 / (3963.2*5) ]}
+        },
+        limit: 5,
+      }, (e, resp) => {
+        if (!e) {
+          resp.count((err, docs) => {
+            console.log('done', err, docs);
+            res.send({err, docs});
+          });
+        } else {
+          res.send({error: e});
+        }
+      })
+    }
+  });
+
   MongoClient.connect(process.env.DB_URL, (err, database) => {
     if (err) return console.log(err);
     db = database;
@@ -53,7 +77,11 @@ export default function createApp(express) {
             res.send(postcard);
           });
       });
+
+
     });
+
+
     // express.post('create-address', (req, res, next) => {
     //   db.collection('addresses').save(req.body, (err, result) => {
     //     //form validation on client-side

@@ -11,8 +11,11 @@ export default class BuildingStatsContainer extends Component {
   componentWillMount() {
     const addressInfo = localStorage.user_address;
     if (addressInfo) {
-      this.setState({address: JSON.parse(addressInfo)});
-      fetch('/api/building-info')
+      const address = JSON.parse(addressInfo);
+      this.setState({address});
+      console.log(address.geo);
+      const {lat, lng} = address.geo;
+      fetch(`/api/building-info?lat=${lat}&lng=${lng}`)
         .then(resp => resp.json())
         .then(building => this.setState({building}));
     }

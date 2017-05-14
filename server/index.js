@@ -10,10 +10,17 @@ import config from './config/environment';
 import createApp from './createApp';
 
 if (config.env === 'development') {
-
+  let relayServer;
+  if (!process.env.SERVER){
   // Launch Relay by using webpack.config.js
-  const relayServer = new WebpackDevServer(webpack(webpackConfig), {
+  let relayServer = new WebpackDevServer(webpack(webpackConfig), {
     contentBase: '/build/',
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3332',
+        secure: false,
+      },
+    },
     setup: express => {
       createApp(express);
     },
@@ -23,11 +30,13 @@ if (config.env === 'development') {
     hot: true,
     historyApiFallback: true
   });
-
-  // Serve static resources
+} else {
+    relayServer = express();
+    createApp(relayServer);
+  }
   relayServer.use('/', express.static(path.join(__dirname, '../build')));
   relayServer.use('/', express.static(path.join(__dirname, '../raw-assets')));
-  relayServer.listen(config.port, () => {
+  relayServer.listen(process.env.SERVER ? process.env.SERVER : config.port, () => {
     console.log(`server is listening intently on port ${config.port}!`);
   });
 } else if (config.env === 'production') {
@@ -36,6 +45,7 @@ if (config.env === 'development') {
   relayServer.use(historyApiFallback());
   relayServer.use('/', express.static(path.join(__dirname, '../build')));
   relayServer.use('/', express.static(path.join(__dirname, '../raw-assets')));
+  createApp(relayServer);
   relayServer.listen(config.port, () => {
     console.log(`server is listening intently on port ${config.port}!`);
   });
