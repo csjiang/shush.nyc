@@ -33,7 +33,10 @@ export default class Splash extends React.Component {
       radius: 50,
     });
     this.googleAutocomplete.setBounds(circle.getBounds());
-    this.googleAutocomplete.addListener('place_changed', this.placeChanged);
+    this.googleAutocompleteListener = this.googleAutocomplete.addListener(
+      'place_changed',
+      this.placeChanged
+    );
   }
 
   placeChanged = () => {
@@ -56,23 +59,18 @@ export default class Splash extends React.Component {
       lng: place.geometry.location.lng(),
     }
 
-    localStorage.setItem('address', JSON.stringify({geo, address}));
+    localStorage.setItem('user_address', JSON.stringify({geo, address, place}));
     this.setState({hasAddress: true});
+    this.props.router.push('/home');
   }
 
   componentWillUnmount() {
-    if (this.googleAutocomplete) {
-      this.googleAutocomplete.removeListener('place_changed', this.placeChanged);
+    if (this.googleAutocompleteListener) {
+      google.maps.event.removeListener(this.googleAutocompleteListener);
     }
   }
 
   render() {
-    if (this.state.hasAddress) {
-      return (
-        <Redirect to="/home" />
-      );
-    }
-
     return (
       <div className={ styles.outercontainer }>
         <div className={ styles.innercontainer }>

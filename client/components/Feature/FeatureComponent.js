@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Cell, Card, CardTitle, CardText, CardActions, Button } from 'react-mdl';
 import Page from '../Page/PageComponent';
+import BuildingStatsContainer from './BuildingStatsContainer';
 import styles from './Feature.scss';
 
 export default class Feature extends React.Component {
@@ -17,6 +18,9 @@ export default class Feature extends React.Component {
           <h1 className={styles.logotext}>Shush.NYC</h1>
           <p className={styles.tagline}>i ♥ my neighbors, they’re so sweet</p>
         </div>
+        <Page heading='Your building'>
+          <BuildingStatsContainer />
+        </Page>
         <Page heading='Take action'>
           <Grid>
             {this.props.features.map((edge) => {
