@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Page from '../Page/PageComponent';
-import { Textfield, Button } from 'react-mdl';
+import { Textfield, Button, ProgressBar } from 'react-mdl';
 
 export default class SendPostcard extends Component {
 
@@ -12,7 +12,8 @@ export default class SendPostcard extends Component {
       sent: false,
       error: false,
       url: '',
-      expected_delivery_date: ''
+      expected_delivery_date: '',
+      loading: false,
     };
   }
 
@@ -27,29 +28,37 @@ export default class SendPostcard extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    const { address } = JSON.parse(localStorage.user_address);
-    console.log('asdhoiasjdoiasjdsa');
 
-    fetch('/api/create-postcard', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          message: this.state.message,
-          address_line1: address.street_number + ' ' + address.route,
-          address_line2: this.state.aptNumber ? this.state.aptNumber : '',
-          address_city: address.sublocality_level_1,
-          address_zip: address.postal_code,
+    if (this.state.message.length > 350) {
+      return this.setState({ error: 'Please limit your message to no more than 350 characters in length.'});
+    } else {
+
+      const { address } = JSON.parse(localStorage.user_address);
+
+      fetch('/api/create-postcard', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: this.state.message,
+            address_line1: address.street_number + ' ' + address.route,
+            address_line2: this.state.aptNumber ? this.state.aptNumber : '',
+            address_city: address.sublocality_level_1,
+            address_zip: address.postal_code,
+          })
         })
-      })
-      .then(resp => resp.json())
-      .then(({ url, expected_delivery_date }) => this.setState({
-        url,
-        expected_delivery_date
-      }))
-      .catch(err => this.setState({ error: err }));
-  }
+        .then(resp => resp.json())
+        .then(({ url, expected_delivery_date }) => this.setState({
+          sent: true,
+          loading: true,
+          url,
+          expected_delivery_date
+        }))
+        .then(() => setTimeout(() => this.setState({ loading: false }), 3000))
+        .catch(err => this.setState({ error: err }));
+      }
+    }
 
   render() {
     return (
@@ -59,18 +68,25 @@ export default class SendPostcard extends Component {
         ? <Page heading='Customize and send an anonymous postcard to your noisy neighbor.'>
           {
             this.state.error
-            ? <div>Oh no, an error occurred! {JSON.stringify(this.state.error)}</div>
+            ? <div style={{
+              width: '70%',
+              margin: 'auto',
+            }}>
+              <h4>Oh no, an error occurred!</h4>
+              <h5>{JSON.stringify(this.state.error).replace('"', '')}</h5>
+            </div>
             : null
           }
           <div style={{ width: '70%', margin: 'auto' }}>
             <Textfield
               onChange={this.handleChange('message')}
-              label='Write a custom message, or use our handy-dandy one!'
+              label='Write a custom message, or go with our handy-dandy one!'
               value={this.state.message}
               floatingLabel
               rows={5}
               style={{width: '80%'}}
             />
+            <div><small>Characters: {this.state.message.length} / 350</small></div>
             <Textfield
               onChange={this.handleChange('aptNumber')}
               label='Enter the apartment or unit number, if you know it...'
@@ -81,9 +97,12 @@ export default class SendPostcard extends Component {
             <Button primary raised onClick={this.handleSubmit}>Send!</Button>
           </div>
         </Page>
+        :
+        this.state.loading
+        ? <ProgressBar indeterminate />
         : <Page heading='Your postcard was successfully sent!'>
           <div>
-          <h3>View your postcard <a href={this.state.url}>here.</a></h3>
+          <h3>View your postcard <a target='_blank' href={this.state.url}>here.</a></h3>
           <h3>Your expected delivery date is {this.state.expected_delivery_date}. Thanks for using shush.nyc! If you like our service, please tell your friends.</h3>
           </div>
         </Page>

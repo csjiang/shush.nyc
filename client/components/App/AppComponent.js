@@ -9,7 +9,6 @@ import styles from './App.scss';
 export default class App extends React.Component {
   static propTypes = {
     children: PropTypes.object.isRequired,
-    viewer: PropTypes.object.isRequired
   };
 
   render() {

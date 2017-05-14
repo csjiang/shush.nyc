@@ -6,7 +6,7 @@ import Footer from '../Footer/FooterContainer';
 export default class Root extends Component {
   static propTypes = {
     children: PropTypes.object.isRequired,
-    viewer: PropTypes.object.isRequired
+    // viewer: PropTypes.object.isRequired
   };
 
   render() {
