@@ -51,8 +51,8 @@ export default class Splash extends React.Component {
       lng: place.geometry.location.lng(),
     }
 
-    // set relay context
-
+    localStorage.setItem('address', JSON.stringify({geo, address}));
+    
   }
 
   componentWillUnmount() {

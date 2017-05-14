@@ -19,22 +19,22 @@ export default class Feature extends React.Component {
         </div>
         <Page heading='Take action'>
           <Grid>
-            {this.props.viewer.features.edges.map((edge) => {
-              if (edge.node.type.indexOf('action') !== 0) {
+            {this.props.features.map((edge) => {
+              if (edge.type.indexOf('action') !== 0) {
                 return;
               }
 
               return (
-                <Cell col={4} key={edge.node.id}>
-                  <Card shadow={0} className={styles.card + ' ' + edge.node.type}>
+                <Cell col={4} key={edge.id}>
+                  <Card shadow={0} className={styles.card + ' ' + edge.type}>
                     <CardTitle expand className={styles.image}>
-                      <i className={`material-icons ${styles.icon}`}>{edge.node.type.replace('action-', '')}</i>
+                      <i className={`material-icons ${styles.icon}`}>{edge.type.replace('action-', '')}</i>
                     </CardTitle>
                     <CardActions className={styles.name}>
-                      <Button colored href={edge.node.url}>{edge.node.name}</Button>
+                      <Button colored href={edge.url}>{edge.name}</Button>
                     </CardActions>
                     <CardText className={styles.description}>
-                      {edge.node.description}
+                      {edge.description}
                     </CardText>
                   </Card>
                 </Cell>
@@ -44,22 +44,22 @@ export default class Feature extends React.Component {
         </Page>
         <Page heading='Resources'>
           <Grid>
-            {this.props.viewer.features.edges.map((edge) => {
-              if (edge.node.type.indexOf('resource') !== 0) {
+            {this.props.features.map((edge) => {
+              if (edge.type.indexOf('resource') !== 0) {
                 return;
               }
 
               return (
-                <Cell col={4} key={edge.node.id}>
+                <Cell col={4} key={edge.id}>
                   <Card shadow={0} className={styles.card}>
                     <CardTitle expand className={styles.image}>
-                      <i className={`material-icons ${styles.icon}`}>{edge.node.type.replace('resource-', '')}</i>
+                      <i className={`material-icons ${styles.icon}`}>{edge.type.replace('resource-', '')}</i>
                     </CardTitle>
                     <CardActions className={styles.name}>
-                      <Button colored href={edge.node.url}>{edge.node.name}</Button>
+                      <Button colored href={edge.url}>{edge.name}</Button>
                     </CardActions>
                     <CardText className={styles.description}>
-                      {edge.node.description}
+                      {edge.description}
                     </CardText>
                   </Card>
                 </Cell>

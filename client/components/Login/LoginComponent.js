@@ -2,12 +2,16 @@
 import React from 'react';
 import { Grid, Cell, Textfield, Button, Checkbox } from 'react-mdl';
 import Page from '../Page/PageComponent';
+import RemoteForm from '../RemoteForm/RemoteFormComponent';
 
 export default class Login extends React.Component {
   render() {
     return (
       <Page heading='Login'>
         <div style={{ width: '70%', margin: 'auto' }}>
+          <div>
+            <RemoteForm />
+          </div>
           <Grid>
             <form style={{ margin: 'auto' }}>
               <Cell col={12}>

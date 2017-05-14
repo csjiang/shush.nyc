@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay';
 import Footer from '../Footer/FooterContainer';
 
-class Root extends Component {
+export default class Root extends Component {
   static propTypes = {
     children: PropTypes.object.isRequired,
     viewer: PropTypes.object.isRequired
@@ -17,12 +17,3 @@ class Root extends Component {
     );
   }
 }
-
-export default Relay.createContainer(Root, {
-  fragments: {
-    viewer: () => Relay.QL`
-      fragment on User {
-        ${Footer.getFragment('viewer')}
-      }`
-  }
-});

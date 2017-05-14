@@ -37,6 +37,10 @@
 <% } %>
 <% } %>
 
+<% if (htmlWebpackPlugin.options.googleMaps) { %>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= htmlWebpackPlugin.options.googleMaps.apiKey %>&libraries=places"></script>
+<% } %>
+
 <% if (htmlWebpackPlugin.options.window) { %>
 <script>
   <% for (var varName in htmlWebpackPlugin.options.window) { %>
@@ -53,9 +57,6 @@
 <script src="<%= htmlWebpackPlugin.options.devServer%>/webpack-dev-server.js"></script>
 <% } %>
 
-<% if (htmlWebpackPlugin.options.googleMaps) { %>
-<script src="https://maps.googleapis.com/maps/api/js?key=<%= htmlWebpackPlugin.options.googleMaps.apiKey %>&libraries=places"></script>
-<% } %>
 
 <% if (htmlWebpackPlugin.options.googleAnalytics) { %>
 <script>
