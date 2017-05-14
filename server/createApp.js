@@ -2,9 +2,9 @@
 
 import bodyParser from 'body-parser';
 import { MongoClient } from 'mongodb';
-import Lob from 'lob';
+import MakeLob from 'lob';
 
-const Lob = Lob(process.env.LOB_API_KEY);
+const Lob = MakeLob(process.env.LOB_API_KEY);
 let db;
 
 export default function createApp(express, port) {
