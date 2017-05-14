@@ -16,7 +16,7 @@ export default function createApp(express) {
     db = database;
 
     express.post('/api/create-postcard', (req, res, next) => {
-      const { address_line1, address_line2, address_city, address_zip, message } = req.body;
+      const { address_line1, address_line2, address_city, address_zip, message, token, email } = req.body;
 
       Lob.postcards.create({
         to: {
@@ -46,11 +46,16 @@ export default function createApp(express) {
         res.json(postcard);
 
         return db.collection('postcards')
-          .save(postcard, (err, result) => {
+          .save(Object.assign({}, ...postcard, { token, email }), (err, result) => {
             //form validation on client-side
             if (err) return console.log(err);
-          });
+          })
       });
+    });
+
+    express.post('/api/save-stripe-token', (req, res, next) => {
+      console.log('stripe token', req.body)
+      res.json(req.body);
     });
     // express.post('create-address', (req, res, next) => {
     //   db.collection('addresses').save(req.body, (err, result) => {
