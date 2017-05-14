@@ -1,12 +1,17 @@
 /* eslint-disable global-require */
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Redirect} from 'react-router';
 import { Button, Textfield } from 'react-mdl';
 import styles from './Splash.scss';
 
 
 
 export default class Splash extends React.Component {
+  state = {
+    hasAddress: false,
+  };
+
   static propTypes = {
     viewer: PropTypes.object.isRequired
   };
@@ -52,7 +57,7 @@ export default class Splash extends React.Component {
     }
 
     localStorage.setItem('address', JSON.stringify({geo, address}));
-    
+    this.setState({hasAddress: true});
   }
 
   componentWillUnmount() {
@@ -62,6 +67,12 @@ export default class Splash extends React.Component {
   }
 
   render() {
+    if (this.state.hasAddress) {
+      return (
+        <Redirect to="/home" />
+      );
+    }
+
     return (
       <div className={ styles.outercontainer }>
         <div className={ styles.innercontainer }>
