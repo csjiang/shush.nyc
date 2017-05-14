@@ -1,6 +1,7 @@
 /* eslint-disable no-console, no-shadow */
 import path from 'path';
 import webpack from 'webpack';
+import fallback from 'express-history-api-fallback';
 import express from 'express';
 import WebpackDevServer from 'webpack-dev-server';
 import historyApiFallback from 'connect-history-api-fallback';
@@ -36,6 +37,7 @@ if (config.env === 'development') {
   }
   relayServer.use('/', express.static(path.join(__dirname, '../build')));
   relayServer.use('/', express.static(path.join(__dirname, '../raw-assets')));
+  relayServer.use(fallback('index.html', {root: '../build'}));
   relayServer.listen(process.env.SERVER ? process.env.SERVER : config.port, () => {
     console.log(`server is listening intently on port ${config.port}!`);
   });
