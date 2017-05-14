@@ -2,14 +2,15 @@
 
 import bodyParser from 'body-parser';
 import { MongoClient } from 'mongodb';
-import Lob from 'lob';
+import LobFactory from 'lob';
 
-const Lob = Lob(process.env.LOB_API_KEY);
+const Lob = LobFactory(process.env.LOB_API_KEY);
 let db;
 
 export default function createApp(express, port) {
   express.use(bodyParser.urlencoded({ extended: true }));
 
+  /*
   MongoClient.connect(process.env.DB_URL, (err, database) => {
     if (err) return console.log(err);
     db = database;
@@ -60,9 +61,9 @@ export default function createApp(express, port) {
         res.send(result);
       });
     });
-
+    */
     express.listen(port, () => {
       console.log(`server is listening intently on port ${port}!`);
     });
-  });
+  // });
 }

@@ -15,11 +15,14 @@ export default class App extends React.Component {
   render() {
     return (
       <div className={styles.root}>
-        <Navbar />
-        <div className={styles.content}>
-          {this.props.children}
-        </div>
-        <Footer viewer={this.props.viewer} />
+        <Navbar>
+          <div className={styles.content}>
+            {this.props.children}
+          </div>
+          <Footer viewer={this.props.viewer} />
+        </Navbar>
+
+
       </div>
     );
   }

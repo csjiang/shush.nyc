@@ -45,6 +45,8 @@ export default class Splash extends React.Component {
       sublocality_level_1: null,
       street_number: null,
       route: null,
+      postal_code: null,
+      administrative_area_level_1: null,
     };
 
     for (const component_name of Object.keys(address)) {

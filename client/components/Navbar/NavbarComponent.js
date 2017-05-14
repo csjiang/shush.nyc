@@ -8,7 +8,7 @@ export default class Navbar extends React.Component {
     const title = 'shush.nyc';
     return (
       <Layout className={styles.root}>
-        <Header title={<Link to='/'>{title}</Link>} scroll>
+        <Header title={<Link to='/home'>{title}</Link>} scroll>
           <Navigation>
             <Link to='/signup'>Sign up</Link>
             <Link to='/login'>Login</Link>
@@ -20,6 +20,7 @@ export default class Navbar extends React.Component {
             <Link to='/login'>Login</Link>
           </Navigation>
         </Drawer>
+        {this.props.children}
       </Layout>
     );
   }
