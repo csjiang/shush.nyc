@@ -16,7 +16,7 @@ export default function createApp(express) {
   express.get('/api/building-info', (req, res, next) => {
     console.log('!!!!', req.query);
     if (db) {
-      let range = req.query.range ? parseInt(req.query.range) : 100;
+      let range = req.query.range ? parseInt(req.query.range) : 80;
       if (range > 150) {
         range = 150;
       }
