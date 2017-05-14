@@ -20,8 +20,6 @@ export default class App extends React.Component {
           </div>
           <Footer viewer={this.props.viewer} />
         </Navbar>
-
-
       </div>
     );
   }

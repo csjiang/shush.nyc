@@ -11,10 +11,10 @@ export default class Feature extends React.Component {
     return (
       <div>
         <div className={styles.greeting}>
-          <h1 className={styles.logotext}>Shush.NYC</h1>
-          <p className={styles.tagline}>i ♥ my neighbors, they’re so sweet</p>
+          <h1 className={styles.logotext}>shush.nyc</h1>
+          <p className={styles.tagline}>Helping you get some peace, ♥, and quiet</p>
         </div>
-        <Page heading='Your neighbhorhood'>
+        <Page heading='Your neighborhood'>
           <BuildingStatsContainer />
         </Page>
         <Page heading='Take action'>

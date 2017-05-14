@@ -61,7 +61,7 @@ export default class SendPostcard extends Component {
           address_line2: this.state.aptNumber ? this.state.aptNumber : '',
           address_city: address.sublocality_level_1,
           address_zip: address.postal_code,
-          token: token,
+          token: data.id,
           email: data.email
         })
       })
@@ -137,7 +137,7 @@ export default class SendPostcard extends Component {
             {
               this.state.valid
               ? <div>
-              <h6>Please click the button below to complete a quick checkout flow via Stripe. Once you have paid <strong>$1.00</strong> for the postcard processing and shipping, your postcard will be sent to <strong>{`${address.street_number}  ${address.route} ${this.state.aptNumber ? this.state.aptNumber : ''}, ${address.sublocality_level_1}, NY, ${address.postal_code}`}</strong>.</h6>
+              <h6>Please click the button below to complete a quick checkout flow via <a href='https://www.stripe.com' target='_blank'>Stripe</a>. Once you have paid <strong>$1.00</strong> for the postcard processing and shipping, your postcard will be sent to <strong>{`${address.street_number} ${address.route}${this.state.aptNumber ? ' ' + this.state.aptNumber : ''}, ${address.sublocality_level_1}, NY, ${address.postal_code}`}</strong>.</h6>
               <h6>You will remain completely anonymous to the postcard addressee, and your personal information will only be used for payment processing purposes.</h6>
               <TakeMoney onToken={this.onToken}/>
               </div>

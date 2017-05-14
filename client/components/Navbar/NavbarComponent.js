@@ -15,8 +15,8 @@ export default class Navbar extends React.Component {
   render() {
     const title = 'shush.nyc';
     return (
-      <Layout className={styles.root}>
-        <Header title={<Link to='/home'>{title}</Link>} scroll>
+      <Layout className={styles.root} /* className={styles.fuckmdl}*/>
+        <Header title={<span><div className={styles.logo}></div><Link to='/home'>{title}</Link></span>} scroll>
           <Navigation>
             {this.getZIP() && <Link to={`/chat/zip-${this.getZIP()}`}>Area Talk</Link>}
             <Link to='/file-complaint'>File Complaint</Link>
