@@ -14,7 +14,7 @@ export default class Feature extends React.Component {
           <h1 className={styles.logotext}>Shush.NYC</h1>
           <p className={styles.tagline}>i ♥ my neighbors, they’re so sweet</p>
         </div>
-        <Page heading='Your building'>
+        <Page heading='Your neighbhorhood'>
           <BuildingStatsContainer />
         </Page>
         <Page heading='Take action'>
@@ -30,12 +30,12 @@ export default class Feature extends React.Component {
                     <CardTitle expand className={styles.image}>
                       <i className={`material-icons ${styles.icon}`}>{edge.type.replace('action-', '')}</i>
                     </CardTitle>
-                    <CardActions className={styles.name}>
-                      <Button colored href={edge.url}>{edge.name}</Button>
-                    </CardActions>
                     <CardText className={styles.description}>
                       {edge.description}
                     </CardText>
+                    <CardActions className={styles.name}>
+                      <Button colored href={edge.url}>{edge.name}</Button>
+                    </CardActions>
                   </Card>
                 </Cell>
               );
@@ -55,12 +55,12 @@ export default class Feature extends React.Component {
                     <CardTitle expand className={styles.image}>
                       <i className={`material-icons ${styles.icon}`}>{edge.type.replace('resource-', '')}</i>
                     </CardTitle>
-                    <CardActions className={styles.name}>
-                      <Button colored href={edge.url}>{edge.name}</Button>
-                    </CardActions>
                     <CardText className={styles.description}>
                       {edge.description}
                     </CardText>
+                    <CardActions className={styles.name}>
+                      <Button colored href={edge.url}>{edge.name}</Button>
+                    </CardActions>
                   </Card>
                 </Cell>
               );

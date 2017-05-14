@@ -7,24 +7,27 @@ export default class BuildingStatsContainer extends Component {
   state = {
     address: null,
     building: null,
+    buildingSmall: null,
   }
   componentWillMount() {
     const addressInfo = localStorage.user_address;
     if (addressInfo) {
       const address = JSON.parse(addressInfo);
       this.setState({address});
-      console.log(address.geo);
       const {lat, lng} = address.geo;
       fetch(`/api/building-info?lat=${lat}&lng=${lng}`)
         .then(resp => resp.json())
         .then(building => this.setState({building}));
+        fetch(`/api/building-info?lat=${lat}&lng=${lng}&range=30`)
+          .then(resp => resp.json())
+          .then(buildingSmall => this.setState({buildingSmall}));
     }
   }
   render() {
     if (!this.state.address) {
       return <div>Couldn’t find your address</div>;
     }
-    if (this.state.address && !this.state.building) {
+    if (this.state.address && !this.state.building && !this.state.buildingSmall) {
       return (
         <div>
           <h4>Loading stats for {this.state.address.place.formatted_address}</h4>
@@ -34,7 +37,8 @@ export default class BuildingStatsContainer extends Component {
     }
     return (
       <div>
-        {this.state.address.place.formatted_address} has had zero noise complaints this week.
+        {this.state.building && <h4>The area around {this.state.address.place.formatted_address} has had {this.state.building.docs} noise complaints.</h4>}
+        {this.state.buildingSmall && <h4>The building has had {this.state.buildingSmall.docs} noise complaints.</h4>}
       </div>
     );
   }

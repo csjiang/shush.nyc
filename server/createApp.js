@@ -16,15 +16,32 @@ export default function createApp(express) {
   express.get('/api/building-info', (req, res, next) => {
     console.log('!!!!', req.query);
     if (db) {
+      let range = req.query.range ? parseInt(req.query.range) : 100;
+      if (range > 150) {
+        range = 150;
+      }
       console.log('db?1', parseFloat(req.query.lat));
       db.collection('complaints').find({
-        loc: {
-          $geoWithin: {$centerSphere: [[ parseFloat(req.query.lat), parseFloat(req.query.lng) ], 1 / (3963.2*5) ]}
-        },
-        limit: 5,
+        loc: { $nearSphere: { $maxDistance: range, $geometry: {type: 'Point', coordinates: [parseFloat(req.query.lng), parseFloat(req.query.lat)]}}}
       }, (e, resp) => {
         if (!e) {
           resp.count((err, docs) => {
+            console.log('done', err, docs);
+            res.send({err, docs});
+          });
+        } else {
+          res.send({error: e});
+        }
+      })
+    }
+  });
+
+  express.get('/api/complaints', (req, res, next) => {
+    console.log('!!!!', req.query);
+    if (db) {
+      db.collection('complaints').find({}, {limit: 100}, (e, resp) => {
+        if (!e) {
+          resp.toArray((err, docs) => {
             console.log('done', err, docs);
             res.send({err, docs});
           });

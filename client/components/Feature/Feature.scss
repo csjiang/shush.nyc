@@ -1,6 +1,8 @@
 .card {
   margin: auto;
-  width: 250px;
+  width: 300px;
+  background-color: #eee;
+  margin-top: 20px;
 }
 
 .image {
@@ -8,11 +10,14 @@
   background-repeat: no-repeat;
   background-size: 40% !important;
   margin: 0 auto;
+  // background-color: #eedeed;
+  width: 100%;
+  text-align: center;
 }
 
 .icon {
   font-size: 80px;
-
+  margin: 0 auto;
 }
 
 .name {
