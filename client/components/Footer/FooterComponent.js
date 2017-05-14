@@ -12,7 +12,7 @@ export default class Footer extends React.Component {
     return (
       <MDLFooter className={styles.root} size='mini'>
         <FooterSection type='middle'>
-          <span>Handcrafted with ♥ by <a href={this.props.viewer.website}> @{this.props.viewer.username}</a></span>
+          <span>Handcrafted with ♥ by <a href='https://github.com/iainnash'>@iainnash</a>, <a href='https://github.com/pmocal'>@pmocal</a>, and <a href='https://github.com/csjiang'>@csjiang</a> for the 2017 TechCrunch Disrupt NYC Hackathon. <a href='https://github.com/csjiang/shush.nyc'><i className='material-icons'>help outline</i></a></span>
         </FooterSection>
       </MDLFooter>
     );
