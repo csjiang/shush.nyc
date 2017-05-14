@@ -26,7 +26,7 @@ export default class Feature extends React.Component {
 
               return (
                 <Cell col={4} key={edge.node.id}>
-                  <Card className={styles.card + ' ' + edge.node.type}>
+                  <Card shadow={0} className={styles.card + ' ' + edge.node.type}>
                     <CardTitle expand className={styles.image}>
                       <i className={`material-icons ${styles.icon}`}>{edge.node.type.replace('action-', '')}</i>
                     </CardTitle>
@@ -51,7 +51,7 @@ export default class Feature extends React.Component {
 
               return (
                 <Cell col={4} key={edge.node.id}>
-                  <Card className={styles.card}>
+                  <Card shadow={0} className={styles.card}>
                     <CardTitle expand className={styles.image}>
                       <i className={`material-icons ${styles.icon}`}>{edge.node.type.replace('resource-', '')}</i>
                     </CardTitle>

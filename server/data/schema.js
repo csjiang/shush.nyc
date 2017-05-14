@@ -157,6 +157,10 @@ const queryType = new GraphQLObjectType({
     viewer: {
       type: userType,
       resolve: () => getUser(1)
+    },
+    features: {
+      type: new GraphQLList(featureType),
+      resolve: () => getFeatures()
     }
   })
 });
