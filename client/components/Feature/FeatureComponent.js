@@ -1,15 +1,11 @@
 /* eslint-disable global-require */
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Grid, Cell, Card, CardTitle, CardText, CardActions, Button } from 'react-mdl';
 import Page from '../Page/PageComponent';
 import BuildingStatsContainer from './BuildingStatsContainer';
 import styles from './Feature.scss';
 
 export default class Feature extends React.Component {
-  static propTypes = {
-    viewer: PropTypes.object.isRequired
-  };
 
   render() {
     return (

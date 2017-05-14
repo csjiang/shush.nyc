@@ -1,19 +1,12 @@
 /* eslint-disable global-require */
 import React from 'react';
-import PropTypes from 'prop-types';
-import {Redirect} from 'react-router';
-import { Button, Textfield } from 'react-mdl';
+import { Redirect } from 'react-router';
+import { Textfield } from 'react-mdl';
 import styles from './Splash.scss';
-
-
 
 export default class Splash extends React.Component {
   state = {
     hasAddress: false,
-  };
-
-  static propTypes = {
-    viewer: PropTypes.object.isRequired
   };
 
   componentDidMount() {
@@ -62,7 +55,7 @@ export default class Splash extends React.Component {
     }
 
     localStorage.setItem('user_address', JSON.stringify({geo, address, place}));
-    this.setState({hasAddress: true});
+    this.setState({ hasAddress: true });
     this.props.router.push('/home');
   }
 
@@ -78,21 +71,21 @@ export default class Splash extends React.Component {
         <div className={ styles.innercontainer }>
           <div className={ styles.videooverlay }>
             <div className={ styles.logotext } />
-            <div>
-              <h5>shush.nyc empowers New Yorkers to take action on neighborhood noise pollution.</h5>
-              <h5>To begin, please enter the location (or your best estimate) of the offending noise.</h5>
+            <div style={{ textShadow: '2px 3px rgba(0, 0, 0, 0.5)' }}>
+              <h5>shush.nyc helps New Yorkers take action on neighborhood noise pollution.</h5>
+              <h5>Where is the offending noise coming from?</h5>
+              <h6>If you don't know the exact address, please make your best guess.</h6>
             </div>
             <div className={styles.locationfield}>
               <Textfield
                 inputClassName="autocomplete-input"
                 ref={autocomplete => this.autocomplete = autocomplete}
                 id='autocomplete'
-                label='Enter an address.'
+                label='Enter a location'
                 floatingLabel
                 style={{ width: '50vw' }}
               />
             </div>
-            <Button ripple>Let's Go</Button>
           </div>
           <video src='/splashvid.mp4' autoPlay loop muted />
         </div>

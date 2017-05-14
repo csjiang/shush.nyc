@@ -40,8 +40,7 @@ export default function createApp(express) {
     db = database;
 
     express.post('/api/create-postcard', (req, res, next) => {
-      const { address_line1, address_line2, address_city, address_zip, message } = req.body;
-      console.log(req.body);
+      const { address_line1, address_line2, address_city, address_zip, message, token, email } = req.body;
 
       Lob.postcards.create({
         to: {
@@ -54,34 +53,36 @@ export default function createApp(express) {
         },
         from: {
           name: 'A concerned neighbor',
-          address_line1: 'https://shush.nyc',
+          address_line1: 'www.shush.nyc',
           address_state: 'NY',
           address_city: req.body.address_city,
           address_zip: req.body.address_zip,
         },
         size: '4x6',
-        front: '<html style="padding: 1in; font-size: 50;">Test</html>',
+        front: 'tmpl_ea477fd9a4036a1',
         message: req.body.message
       }, function (err, postcard) {
         if (err) {
           console.log(err);
-          return res.send({ error: err });
+          return res.json({ error: err });
         }
-        console.log('Postcard to ' + postcard.to.name + ' sent! View it here: ' + postcard.url, ' Your postcard will be delivered on ' + postcard.expected_delivery_date);
+
+        res.json(postcard);
 
         return db.collection('postcards')
-          .save(postcard, (err, result) => {
+          .save(Object.assign({}, ...postcard, { token, email }), (err, result) => {
             //form validation on client-side
             if (err) return console.log(err);
-            console.log(result, 'saved to database');
-            res.send(postcard);
-          });
+          })
       });
 
 
     });
 
-
+    express.post('/api/save-stripe-token', (req, res, next) => {
+      console.log('stripe token', req.body)
+      res.json(req.body);
+    });
     // express.post('create-address', (req, res, next) => {
     //   db.collection('addresses').save(req.body, (err, result) => {
     //     //form validation on client-side
