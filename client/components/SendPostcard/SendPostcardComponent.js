@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import Page from '../Page/PageComponent';
 import { Textfield, Button, ProgressBar } from 'react-mdl';
 import StripeCheckout from 'react-stripe-checkout';
+import styles from './SendPostcardComponent.scss';
 
 const TakeMoney = (props) => (
   <StripeCheckout
     token={props.onToken}
-    stripeKey='pk_test_s8MDBOmjrcAhoXA5Ujx9iS21'
+    stripeKey='pk_live_mPjCURG9J4tmQZLtb36c1C6k'
     name="shush.nyc Team"
     description="Postcard to Noisy Neighbor"
     image="assets/logo.png"
@@ -116,7 +117,13 @@ export default class SendPostcard extends Component {
             </div>
             : null
           }
-          <div style={{ width: '70%', margin: 'auto' }}>
+          <div>
+            <h4>We understand that you may be frustrated with your noisy neighbors, but please don't use any profane language!</h4>
+            <p>Here is an example of what your postcard will look like:</p>
+            <span className={styles.samplefront}> </span>
+            <span className={styles.sampleback}> </span>
+          </div>
+          <div style={{ width: '80%', margin: 'auto'}}>
             <Textfield
               onChange={this.handleChange('message')}
               label='Write a custom message, or go with our handy-dandy one!'

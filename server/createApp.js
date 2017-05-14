@@ -90,7 +90,7 @@ export default function createApp(express) {
                 address_zip: req.body.address_zip,
               },
               size: '4x6',
-              front: 'tmpl_ea477fd9a4036a1',
+              front: 'tmpl_630385b1a7f0c24',
               message: req.body.message
             }, function (err, postcard) {
               if (err) {
