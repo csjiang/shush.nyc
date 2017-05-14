@@ -26,6 +26,33 @@
   text-align: center;
 }
 
+.greeting {
+  background-color: $blue;
+  color: $white;
+  height: 330px;
+  padding-top: 50px;
+  text-align: center;
+}
+
+.sawasdee {
+  font-size: 2.5em;
+  font-weight: normal;
+}
+
+.logotext {
+  background-image: url('../../assets/logo-text.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: invert(100%);
+  background-repeat: none none;
+  color: transparent;
+  height: 80px;
+}
+
+.tagline {
+  font-size: 20px;
+}
+
 /*
 * Add Dropdown styles
 */
