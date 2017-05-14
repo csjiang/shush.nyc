@@ -25,10 +25,14 @@ import {
 import {
   User,
   Feature,
+  Report,
   getUser,
   getFeature,
   getFeatures,
-  addFeature
+  addFeature,
+  getReport,
+  getReports,
+  addReport
 } from './database';
 
 
@@ -45,6 +49,8 @@ const { nodeInterface, nodeField } = nodeDefinitions(
       return getUser(id);
     } else if (type === 'Feature') {
       return getFeature(id);
+    } else if (type === 'Report') {
+      return getReport(id);
     }
     return null;
   },
@@ -53,6 +59,8 @@ const { nodeInterface, nodeField } = nodeDefinitions(
       return userType;
     } else if (obj instanceof Feature) {
       return featureType;
+    } else if (obj instanceof Report) {
+      return reportType;
     }
     return null;
   }
@@ -72,6 +80,12 @@ const userType = new GraphQLObjectType({
       description: 'Features that I have',
       args: connectionArgs,
       resolve: (_, args) => connectionFromArray(getFeatures(), args)
+    },
+    reports: {
+      type: reportConnection,
+      description: 'My filed reports',
+      args: connectionArgs,
+      resolve: (_, args) => connectionFromArray(getReports(), args)
     },
     username: {
       type: GraphQLString,
@@ -110,10 +124,25 @@ const featureType = new GraphQLObjectType({
   interfaces: [nodeInterface]
 });
 
+const reportType = new GraphQLObjectType({
+  name: 'Report',
+  description: 'Noise report',
+  fields: () => ({
+    id: globalIdField('report'),
+    address: {
+      type: GraphQLString,
+      description: 'Report address'
+    }
+  }),
+  interfaces: [nodeInterface]
+});
+
+
 /**
  * Define your own connection types here
  */
 const { connectionType: featureConnection, edgeType: featureEdge } = connectionDefinitions({ name: 'Feature', nodeType: featureType });
+const { connectionType: reportConnection, edgeType: reportEdge } = connectionDefinitions({ name: 'Report', nodeType: reportType });
 
 /**
  * Create feature example
@@ -144,6 +173,28 @@ const addFeatureMutation = mutationWithClientMutationId({
   mutateAndGetPayload: ({ name, description, url }) => addFeature(name, description, url)
 });
 
+const addReportMutation = mutationWithClientMutationId({
+  name: 'AddReport',
+  inputFields: {
+    data: { type: new GraphQLNonNull(GraphQLString) },
+  },
+
+  outputFields: {
+    reportEdge: {
+      type: reportEdge,
+      resolve: (obj) => {
+        const cursorId = cursorForObjectInConnection(getReports(), obj);
+        return { node: obj, cursor: cursorId };
+      }
+    },
+    viewer: {
+      type: userType,
+      resolve: () => getUser(1)
+    }
+  },
+
+  mutateAndGetPayload: ({ address }) => addReport(address)
+});
 
 /**
  * This is the type that will be the root of our query,
@@ -172,7 +223,8 @@ const queryType = new GraphQLObjectType({
 const mutationType = new GraphQLObjectType({
   name: 'Mutation',
   fields: () => ({
-    addFeature: addFeatureMutation
+    addFeature: addFeatureMutation,
+    addReport: addReportMutation
     // Add your own mutations here
   })
 });
