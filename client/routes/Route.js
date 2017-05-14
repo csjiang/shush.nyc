@@ -19,7 +19,7 @@ export default (
     <Route path='/' component={AppContainer}>
       <Route path='/home' component={FeatureContainer} />
       <Route path='/send-postcard' component={SendPostcardComponent} />
-      <Route path='/chat' component={ChatComponent} />
+      <Route path='/chat/:room' component={ChatComponent} />
       <Route path='/data' component={DataComponent} />
       <Route path='/file-complaint' component={FileComplaintComponent} />
       <Route path='/signup' component={SignupComponent} />
