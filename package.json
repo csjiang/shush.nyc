@@ -1,7 +1,7 @@
 {
-  "name": "relay-fullstack",
-  "version": "1.0.0",
-  "description": "Relay Starter Kit - Integrated with Relay, GraphQL, Express, ES6/ES7, JSX, Webpack, Babel, Material Design Lite, and PostCSS",
+  "name": "shush.nyc",
+  "version": "1.0.1",
+  "description": "Take action on noise pollution in NYC",
   "scripts": {
     "start": "nodemon --watch server/data/**/*.js --exec \"npm run update && ./node_modules/.bin/babel ./server --out-dir ./build && node build/index.js\"",
     "update": "./node_modules/.bin/babel-node server/utils/updateSchema.js",
@@ -11,10 +11,9 @@
     "heroku-postbuild": "cross-env NODE_ENV=production webpack --config webpack.config.js && cross-env NODE_ENV=production ./node_modules/.bin/babel ./server --out-dir ./lib",
     "clean": "rm -rf build && mkdir build"
   },
-  // "pre-commit": "lint",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lvarayut/relay-fullstack.git"
+    "url": "git+https://github.com/csjiang/shush.nyc.git"
   },
   "engines": {
     "node": "6.6.0",
@@ -35,12 +34,12 @@
     "scaffolding",
     "fullstack"
   ],
-  "author": "Varayut Lerdkanlayanawat",
+  "author": "Christine Jiang, Iain Nash, Parthiv Mohan",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/lvarayut/relay-fullstack/issues"
+    "url": "https://github.com/csjiang/shush.nyc/issues"
   },
-  "homepage": "https://github.com/lvarayut/relay-fullstack",
+  "homepage": "https://shush.nyc",
   "devDependencies": {
     "eslint": "^3.12.2",
     "eslint-config-airbnb": "^13.0.0",
@@ -88,8 +87,12 @@
     "react-relay": "^0.10.0",
     "react-router": "^3.0.0",
     "react-router-relay": "^0.13.5",
+    "relay-mongodb-connection": "^2.1.0",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.1",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
+    "uuid": "^3.0.1",
     "webpack": "2.2.0",
     "webpack-dev-server": "2.2.1"
   }

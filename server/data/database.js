@@ -56,6 +56,10 @@ function getUser(id) {
   return id === lvarayut.id ? lvarayut : null;
 }
 
+function getViewer() {
+  return lvarayut;
+}
+
 function getFeature(id) {
   return features.find(w => w.id === id);
 }
@@ -70,6 +74,13 @@ function addReport(id, address) {
   return newReport;
 }
 
+function addUser(geo, address) {
+  console.log(geo, address);
+  const newUser = new User(geo, address);
+  users.push(newUser);
+  return newUser;
+}
+
 function getReport(id) {
   return reports.find(w => w.id === id);
 }
@@ -78,13 +89,12 @@ function getReports() {
   return features;
 }
 
-
-
 export {
   User,
   Feature,
   Report,
   getUser,
+  getViewer,
   getFeature,
   getFeatures,
   addFeature,

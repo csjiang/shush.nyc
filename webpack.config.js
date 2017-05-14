@@ -14,6 +14,9 @@ let plugins;
 const htmlTemplate = new HtmlWebpackPlugin({
   title: 'Relay Starter Kit - Integrated with Relay, GraphQL, Express, ES6/ES7, JSX, Webpack, Babel, Material Design Lite, and PostCSS',
   template: './client/index.html',
+  googleMaps: {
+    apiKey: process.env.MAPS_API_KEY,
+  },
   mobile: true,
   inject: false
 });
