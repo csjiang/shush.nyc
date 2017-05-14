@@ -226,7 +226,6 @@ const addUserMutation = mutationWithClientMutationId({
 
   mutateAndGetPayload: ({ address }) => addReport(address)
 });
-*/
 
 /**
  * This is the type that will be the root of our query,
