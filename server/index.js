@@ -12,25 +12,25 @@ import createApp from './createApp';
 if (config.env === 'development') {
   let relayServer;
   if (!process.env.SERVER){
-  // Launch Relay by using webpack.config.js
-  let relayServer = new WebpackDevServer(webpack(webpackConfig), {
-    contentBase: '/build/',
-    proxy: {
-      '/api': {
-        target: 'http://localhost:3332',
-        secure: false,
+    // Launch Relay by using webpack.config.js
+    relayServer = new WebpackDevServer(webpack(webpackConfig), {
+      contentBase: '/build/',
+      proxy: {
+        '/api': {
+          target: 'http://localhost:3332',
+          secure: false,
+        },
       },
-    },
-    setup: express => {
-      createApp(express);
-    },
-    stats: {
-      colors: true
-    },
-    hot: true,
-    historyApiFallback: true
-  });
-} else {
+      setup: express => {
+        createApp(express);
+      },
+      stats: {
+        colors: true
+      },
+      hot: true,
+      historyApiFallback: true
+    });
+  } else {
     relayServer = express();
     createApp(relayServer);
   }
