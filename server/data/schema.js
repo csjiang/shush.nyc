@@ -27,6 +27,7 @@ import {
   Feature,
   Report,
   getUser,
+  getViewer,
   getFeature,
   getFeatures,
   addFeature,
@@ -187,14 +188,45 @@ const addReportMutation = mutationWithClientMutationId({
         return { node: obj, cursor: cursorId };
       }
     },
-    viewer: {
+  },
+
+  mutateAndGetPayload: ({ address }) => addReport(address)
+});
+
+/*
+const addUserMutation = mutationWithClientMutationId({
+  name: 'AddUser',
+  inputFields: {
+    geo: {
+      type: new GraphQLObjectType({
+        fields: {
+          lat: new GraphQLNonNull(GraphQLFloat),
+          lng: new GraphQLNonNull(GraphQLFloat),
+        }
+      })
+    },
+    address: {
+      type: new GraphQLObjectType({
+        fields: {
+          sublocality_level_1: new GraphQLNonNull(GraphQLString),
+          street_number: new GraphQLNonNull(GraphQLString),
+          route: new GraphQLNonNull(GraphQLString),
+        }
+      })
+    }
+  },
+  outputFields: {
+    user: {
       type: userType,
-      resolve: () => getUser(1)
+      resolve: (obj) => {
+        return obj;
+      }
     }
   },
 
   mutateAndGetPayload: ({ address }) => addReport(address)
 });
+*/
 
 /**
  * This is the type that will be the root of our query,
@@ -207,7 +239,11 @@ const queryType = new GraphQLObjectType({
     // Add your own root fields here
     viewer: {
       type: userType,
-      resolve: () => getUser(1)
+      resolve: () => getViewer()
+    },
+    user: {
+      type: userType,
+      resolve: (userid) => getUser(userid),
     },
     features: {
       type: new GraphQLList(featureType),
@@ -224,7 +260,7 @@ const mutationType = new GraphQLObjectType({
   name: 'Mutation',
   fields: () => ({
     addFeature: addFeatureMutation,
-    addReport: addReportMutation
+    addReport: addReportMutation,
     // Add your own mutations here
   })
 });
