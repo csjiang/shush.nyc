@@ -6,6 +6,10 @@ import RootContainer from '../components/App/RootContainer';
 import AppContainer from '../components/App/AppContainer';
 import SplashContainer from '../components/Splash/SplashContainer';
 import FeatureContainer from '../components/Feature/FeatureContainer';
+import FileComplaintComponent from '../components/FileComplaint/FileComplaintComponent';
+import SendPostcardComponent from '../components/SendPostcard/SendPostcardComponent';
+import ChatComponent from '../components/Chat/ChatComponent';
+import DataComponent from '../components/Data/DataComponent';
 import SignupComponent from '../components/Signup/SignupComponent';
 import LoginComponent from '../components/Login/LoginComponent';
 
@@ -14,6 +18,10 @@ export default (
     <IndexRoute component={SplashContainer} queries={ViewerQuery} />
     <Route path='/' component={AppContainer} queries={ViewerQuery}>
       <Route path='/home' component={FeatureContainer} queries={ViewerQuery} />
+      <Route path='/file-complaint' component={FileComplaintComponent} />
+      <Route path='/send-postcard' component={SendPostcardComponent} />
+      <Route path='/chat' component={ChatComponent} />
+      <Route path='/data' component={DataComponent} />
       <Route path='/signup' component={SignupComponent} />
       <Route path='/login' component={LoginComponent} />
       <Redirect from='*' to='/' />
