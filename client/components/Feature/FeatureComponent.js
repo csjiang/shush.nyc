@@ -13,6 +13,10 @@ export default class Feature extends React.Component {
   render() {
     return (
       <div>
+        <div className={styles.greeting}>
+          <h1 className={styles.logotext}>Shush.NYC</h1>
+          <p className={styles.tagline}>i ♥ my neighbors, they’re so sweet</p>
+        </div>
         <Page heading='Take action'>
           <Grid>
             {this.props.viewer.features.edges.map((edge) => {

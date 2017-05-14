@@ -35,12 +35,14 @@ if (config.env === 'development') {
 
   // Serve static resources
   relayServer.use('/', express.static(path.join(__dirname, '../build')));
+  relayServer.use('/', express.static(path.join(__dirname, '../raw-assets')));
   relayServer.listen(config.port, () => console.log(chalk.green(`Relay is listening on port ${config.port}`)));
 } else if (config.env === 'production') {
   // Launch Relay by creating a normal express server
   const relayServer = express();
   relayServer.use(historyApiFallback());
   relayServer.use('/', express.static(path.join(__dirname, '../build')));
+  relayServer.use('/', express.static(path.join(__dirname, '../raw-assets')));
   relayServer.use('/graphql', graphQLHTTP({ schema }));
   relayServer.listen(config.port, () => console.log(chalk.green(`Relay is listening on port ${config.port}`)));
 }
